@@ -77,14 +77,15 @@ for i in range(3,10):
 for i in range(m,n,s):
     print(i)
 
-从m数到n不包含n，但是每次的间隔是s
+前闭后开区间 ，从m数到n不包含n，但是每次的间隔是s
 
 pass: 代码占位，防止报错
 ```
 
 ## 基础数据结构
 ### int,float,bool
-**所有非空字符串都是True，非空列表都是ture，所有非零数都是true**
+**所有非空字符串都是True，非空列表都是ture，所有非零数都是true**  
+
 str(*****)
 
 list(*****)
@@ -100,3 +101,158 @@ bytes(****)
 运算符(***)
 
 文件操作(***)
+
+### 字符串
+```python
+# 1. 字符串的格式化问题
+
+name =input("请输入你的名字")
+add=input("请输入你的住址")
+age=int(input("请输入你的年龄"))
+
+# %s 字符串占位
+# %d 占位数字
+s="我叫%s,我的住址%s,my age %d" % (name,add,age)
+print(s)
+
+s1="我叫{},我的住址{},my age {}".format(name,add,age)
+print(s1)
+
+s2=f"我叫{name},我的住址{add}，myage{age}" # fstring 更简单更方便
+print(s2)
+
+# 2.索引和切片
+# 索引：按照某一个位置提取元素
+s="我叫周杰伦"
+#可以采用索引的方式提取某一个字符
+print(s[3])
+print(s[-1]) # 符号表示倒数 -1 倒数第一
+
+#切片 提取一部分内容
+s= "我叫周杰伦，你呢，你叫周润发吗"
+print(s[3:6]) # 从索引3位置进行切片，切到6结束，不包含索引6
+
+print(s[:1]) # 从开始开始切片，前面的数可以省略
+print(s[1:]) # 截取到末尾，后面的数也可以省略
+
+print(s[-3:-1]) # 从倒数第三个到倒数第一个
+
+# 注意print(s[-1,-3]) 没有结果
+
+s="我爱你"
+# 可以给切片添加步长来控制切片的方向
+print(s[::-1]) # 注意最后一个-1表示从右往左
+
+# 解释一下步长
+# 语法 s[start:end:step]从start切到end且每step个元素出来一个元素
+s="aiuyiuiuysdfpoipopoi"
+print(s[3:8:2])
+# 符号是正的，从左往右分组就取左边的那个，是负号从右往左分组，且取出来的是右面的
+# 而且注意如果改成负号的时候再切片最左边的索引就要从右面的位置开始取了
+print(s[-1:-10:-3]) # 正确！
+print(s[10:3:-2])   # 正确！
+print(s[-10:-1:-3]) # 错误！
+
+
+# 3.字符串的常规操作
+# 字符串的操作一般不会对原字符串产生影响，但是会返回一个新的字符串
+s="python"
+s1= s.capitalize() # 让首字母变成大写， 原字符串不改变，但是会返回新的值
+
+print(s1)
+print(s)
+
+s.title() #所有单词的首字母变成大写，不常用
+s1=s.lower()
+
+print(s1)
+
+s=s.upper() # 忽略大小写来进行判断
+
+print(s)
+
+verify_code =input("请输入")
+user_code="wGhj"
+if verify_code.upper()==user_code.upper():
+    print("right")
+else :
+    print("wrong")
+
+
+# 替换和切割
+# strip 函数,去掉字符串两端的空白符，例如空格和换行符，/t/n
+s="      iop   oiu    "
+s1=s.strip()
+print(s1)
+#iop oiu
+
+username=input("请输入用户名： ").strip()
+password=input("请输入密码： ").strip()
+print(f"{username},{password}")
+
+# replace(old,new)函数
+s="hello , my name is zhoujielun"
+print(s.replace("zhoujielun","zz"))
+
+print(s.replace(" ",""))
+
+# 字符串的切割
+# split(用什么切割) 字符串切割,切割之后的结果会放在列表当中
+a="java_script_c#_c++"
+lst=a.split("_")
+print(lst)
+lst=a.split("_c#")
+print(lst)
+
+# 注意用谁去切谁就会消失,注意列表里面用的是单引号不是双引号了
+
+#replace split strip
+
+
+
+
+# 查找和判断
+
+# 查找
+s="你好啊，我叫周润发"
+
+# 1. find
+ret=s.find("周润发")
+print(ret)
+# 如果找到了返回索引，如果没找到返回的是-1！
+
+# 2. index
+ret=s.index("周")
+print(ret)
+#注意index如果没找到会直接报错
+
+# 3. in 更常见
+print("周润发" in s)
+print("周润发" not in s)
+#注意 in可以做条件判断
+
+
+# 判断
+name=input("请输入你的名字")
+if name.startswith("张"): #判断是否以某个字符开头，endwith()
+    pass
+
+money=input("money")
+if money.isdigit(): # isdigit 判断字符串是否由整数组成 ，isdecimal小数
+    money=int(money)
+else:
+    pass
+
+
+
+# 其他
+# 1. len()
+len(s)
+type(s)
+print(len(s))
+
+# 2. join()
+lst=['a','b','c']
+lst2=["a","b","c","d"]
+print("-".join(lst),"_".join(lst2))
+```
