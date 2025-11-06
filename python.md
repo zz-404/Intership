@@ -256,3 +256,125 @@ lst=['a','b','c']
 lst2=["a","b","c","d"]
 print("-".join(lst),"_".join(lst2))
 ```
+
+```
+# 列表
+# 定义 能装东西的东西
+# 列表里的元素用逗号隔开
+#python 中用[]来表示一个列表
+
+lst=["金毛狮王",["acdc","acdc"],"bbb","ccc"]
+# 特性：
+# 1. 也像字符串一样有索引和切片
+# 2. 索引如果超出范围会报错
+# 3. 可以用for循环进行遍历
+# 4. 可以用len知道列表的长度
+#print(lst)
+print(lst[0])
+print(lst[1])
+
+for item in lst:
+    print(item)
+
+# 列表的增删改查
+lst=[]
+
+#向列表中添加内容
+# 1.append()
+lst.append("zhangsan")
+lst.append(["zhangsan","zhangwuji"])
+print(lst)
+
+# 2.insert()
+lst.insert(0,"zhaomin")
+print(lst)
+#insert()必须指定位置
+
+# 3.extend()
+lst.extend(["wuzetian","yingzheng","machao"])
+print(lst)
+#extend可以将两个列表合并，批量添加
+
+
+# 删除元素
+# 1.pop()
+ret=lst.pop(3)
+print(ret)
+# pop()返回被删除的元素并删除
+
+#★★ 2.remove()
+lst.remove("machao")
+print(lst)
+# 指定元素删除
+
+
+# 修改元素
+lst[2]="kai"
+#直接用索引
+
+# 查询
+print(lst)
+#直接用索引进行查询
+
+
+# 小练习
+# 把所有姓张的人改成姓王
+lst=["张无忌","张绍刚","444"]
+
+
+for item in lst:
+    if item.startswith("张"):
+        item.replace("张","王")
+        newname="王"+item[1:]
+        print(item)
+        print(newname)
+print(lst)
+# 注意，问题来了
+# 1. item.replace只提供返回值，并不直接修改元素
+# 2. 在循环中直接修改item变量不会改变原列表中的元素，因为item是一个局部变量
+# 3. 看不到索引
+# ★★★★★★★★所以必须通过索引修改元素★★★★★★★★
+# ★★ 修改for循环，通过索引遍历
+
+for i in range(len(lst)):
+    if lst[i].startswith("张"):
+        lst[i]="王"+lst[i][1:]
+
+print(lst)
+
+
+
+# 其他操作
+# 排序
+lst=["马化腾",1,2,3]
+#列表是有序的
+
+lst=["1234","123"]
+lst.sort() #对列表进行升序排序,需要相同的数据类型
+print(lst)
+lst.sort(reverse=True)
+print(lst)
+
+#列表的嵌套
+lst=[123,12,[123,[45,"spring"]]]
+print(lst[2][1][1].upper())
+
+#列表的循环删除
+lst=["张无极","赵敏","张绍刚","张无忌","武则天"]
+# for item in lst:
+#     if item.startswith("张"):
+#         lst.remove(item)
+# print(lst)
+#出现问题了，在删除的时候后面元素自动递补，但是索引并没有改变，因此错过了一个元素
+
+
+temp=[]# 准备一个临时列表，存储即将要删除的东西
+for item in lst:
+    if item.startswith("张"):
+        temp.append(item)
+
+for item in temp:
+    lst.remove(item)
+# 安全稳妥的删除方式：将要删除的东西保存在新列表当中，循环新列表，删除老列表
+print(lst)
+```
