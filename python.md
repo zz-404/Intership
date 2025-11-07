@@ -102,7 +102,7 @@ bytes(****)
 
 文件操作(***)
 
-### 字符串
+# 字符串
 ```python
 # 1. 字符串的格式化问题
 
@@ -190,7 +190,7 @@ username=input("请输入用户名： ").strip()
 password=input("请输入密码： ").strip()
 print(f"{username},{password}")
 
-# replace(old,new)函数
+# replace(old,new)函数 注意还是同样的只提供返回值，不影响原来的数据
 s="hello , my name is zhoujielun"
 print(s.replace("zhoujielun","zz"))
 
@@ -257,6 +257,7 @@ lst2=["a","b","c","d"]
 print("-".join(lst),"_".join(lst2))
 ```
 
+# 列表
 ```python
 # 列表
 # 定义 能装东西的东西
@@ -276,7 +277,7 @@ print(lst[1])
 for item in lst:
     print(item)
 
-# 列表的增删改查
+# 列表的增删改查，★注意这些增删改查可以直接影响列表，而不只是单单提供返回值
 lst=[]
 
 #向列表中添加内容
@@ -331,7 +332,7 @@ for item in lst:
 print(lst)
 # 注意，问题来了
 # 1. item.replace只提供返回值，并不直接修改元素
-# 2. 在循环中直接修改item变量不会改变原列表中的元素，因为item是一个局部变量
+# 2. 在循环中直接修改item变量不会改变原列表中的元素，因为item是一个局部变量，item也由列表中的东西赋值
 # 3. 看不到索引
 # ★★★★★★★★所以必须通过索引修改元素★★★★★★★★
 # ★★ 修改for循环，通过索引遍历
@@ -378,3 +379,87 @@ for item in temp:
 # 安全稳妥的删除方式：将要删除的东西保存在新列表当中，循环新列表，删除老列表
 print(lst)
 ```
+# 元组和集合
+```
+# tuple 元组 特点：不可变的列表
+t=("zhangwuji","zhaomin",123)
+
+print(t)
+
+print(t[1:3])
+
+# t[0]="qiaofu"  TypeError: 'tuple' object does not support item assignment,元组不可变
+
+print(t)
+
+# 你固定了某些东西，不允许外界修改
+
+# 元组如果只有一个元素★此时括号默认为优先级，默认不当成元组，想让他变成元组的话，需要在元素末尾添加一个逗号
+t=("haha")
+print(t)
+print(type(t))
+
+t=("haha",)
+print(len(t))
+
+t=("haha",["10",2,3,])
+t[1].append("dadada")
+print(t)
+# 注意元组的不可变指的是：元组的某一层地址不可变，不可以被替换为其他地址
+# 但是这个地址处的东西可以进行他自己的操作
+
+# set集合
+# ★重点特性：由于哈希存在，可以去除重复
+s={1,2,3,"heheda",(1,2,3)}
+# s={1,2,3,"heheda",[1,2,3]}    TypeError: unhashable type: 'list'
+# 不可哈希：python中的集合进行数据存储的时候，需要对数据进行哈希计算，根据计算出的数据来进行存储
+# 所以色图集合要求存储的数据必须是可以进行哈希计算的
+# 可哈希的数据类型是不可变的数据值：纯数字，字符串，元组，布尔值
+# 可变的值是不可哈希的，list,dict,set
+print(type(s))
+print(s)
+
+s={}
+print(type(s))# <class 'dict'>
+# 想创建空集合，空元组
+s=set()
+t=tuple()
+str=str()
+lst=list()
+
+# 集合的增删改查
+# 增
+s.add("hhh")
+s.add("123")
+
+# 删
+# 集合没有索引
+# s.pop()  #没有索引。pop()不能加参数，随机弹出一个
+s.remove("hhh")
+
+# 改
+# 只能先删掉再加入
+s.remove("123")
+s.add("liua")
+
+# 集合的交并差
+s1={"123","234","345"}
+s2={"123","345","456"}
+
+# 交
+print(s1&s2)
+print(s1.intersection(s2))
+
+# 并
+print(s1|s2)
+
+# 差集
+print(s1-s2)
+
+# 去重
+lst=["zhoujielun","kunling","caiyilin","zhoujielun","kunling","caiyilin"]
+# set(lst) 可以把lst变成set
+print(list(set(lst)))
+```
+
+# 集合
