@@ -463,3 +463,128 @@ print(list(set(lst)))
 ```
 
 # 集合
+```
+# 字典
+# 首先，字典是以键值对的形式进行存储的
+# 字典的表示方式：{key:value1,key2:value2,key3:value3}
+
+# 字典的key必须是可哈希的数据类型，但是字典的value可以是任何数据类型
+
+dic={"caicaidexiaoze":["chaochao","chenyang"]}
+
+# 字典的增删改查
+# 增
+dic=dict()
+dic["jay"]="zhoujielun"
+dic[1]=123
+dic["jay"]="kunling"
+# 注意比c++更加的灵活，可以放入不同的东西
+# 字典中的键只能有一个，所以
+print(dic)
+
+dic.setdefault("tom","hulatang")# 设置默认值，如果以前已经有tom了,则setdefault不再管用
+dic.setdefault("tom","123")
+print(dic)
+
+# 删除
+dic.pop("jay")
+
+
+# 查找
+# print(dic["jay"]) #如果key不存在，则程序会报错
+# print(dic.get("jay")) #如果key不存在，返回null，当不确定key的时候可以用
+
+# None
+a=None #单纯的就是空，什么都没有
+print(type(a))
+
+dic={
+    "zhaosi":"tebienengwaizui",
+    "liuneng":"tebienenggaoduixiang",
+    123:321,
+    1234:4321
+
+}
+name=input("请输入你想知道的人的名字")
+if dic.get(name) is None:# 注意is也可以
+    print("no thisone")
+else:
+    print(dic.get(name))
+
+
+
+# 字典如何进行循环遍历
+# 1.for循环
+for key in dic:
+    print(key,dic[key])
+
+# 2. 把所有的key全都把存在一个列表中,dic.keys()函数
+print(dic.keys())
+print(list(dic.keys()))
+
+# 3.直接拿到字典中的key和value,dic.items()函数
+print(dic.items()) #列表里放元组
+print(list(dic.items())) #变成一个列表中放着元组
+
+for item in dic.items():
+    print(item)
+
+a,b=(1,2) #元组或者列表都可以执行该操作，该操作叫做解构，或者解包
+print(a)
+print(b)
+
+for item in dic.items():
+    key,value=item # 解构
+    print(key,value)
+
+for key,value in dic.items(): # 在for循环中直接进行解构，非常关键★★★
+    print(key,value)
+
+
+# 字典的嵌套
+n=123
+wangfeng={
+    "name":"wangfeng", #注意直接这么写是不行的，因为字典的键必须是一个值,不能是一个未定义的变量,但是可以是一个已定义的变量
+    "wife":{
+        "name":"zhangziyi",
+        "hobby":"act"
+    },
+    "children":{
+        "children1":{
+            "name":"liu",
+            "age":18,
+        },
+        "children2":{
+            "name":"cai",
+            "age":19,
+        }
+    },
+    "assistant":[
+        {
+            "name":"liu",
+            "age":18,
+        },
+        {
+            "name":"cai",
+            "age":19,
+        }
+    ]
+}
+print(wangfeng["children"]["children1"]["name"])
+
+wangfeng["assistant"][1]["age"]+=12
+print(wangfeng["assistant"][1]["age"])
+
+
+# 循环删除
+# 准备临时列表
+temp=[]
+# 字典循环自己又删自己是不允许的，但是循环别的东西去删字典也是ok的
+for key in dic:
+    if key.startswith("大"):
+        # dic.pop(key) #dictionary changed size during iteration
+        temp.append(key)
+
+for item in temp:
+    dic.pop(item)
+```
