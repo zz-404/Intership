@@ -588,3 +588,69 @@ for key in dic:
 for item in temp:
     dic.pop(item)
 ```
+
+# bytes
+```
+# 1. 字符集和编码
+# 电脑如何存储文字信息？
+#
+# ascii码 128
+# 没有中文的标点符号
+# ANSI => 一套标准，每个字符16bit，2byte
+#
+# 到了中国，gb2312编码 国标  ->gbk编码（windows默认）
+#
+# 国际化组织：
+# Unicode：万国码，统一码
+# 早期unicode UCS-2 2bytes
+# 进行了扩充，变成了4个字节
+#
+#
+# utf: 是可变长度的unicode，可以进行数据的传输和存储
+# utf-8(常用)  最短的位长度 8位
+#         英文：8bit
+#         欧洲文字：16bit
+#         中文文字：24bit
+# utf-16      最短的为长度 16位
+#
+# 总结：
+# 最早的编码是ascii码，8位一字节
+# gbk 16位，两字节   (windows默认)
+# unicode 32bit，4字节
+# utf-8:       mac默认
+#     英文：8bit
+#     欧洲：16bit
+#     中文：24bit
+#
+# gbk和utf-8不能直接进行转化
+
+
+#2.bytes
+   #  程序员平时遇到的所有的数据最终单位都是字节byte
+s="周杰伦"
+bs1=s.encode("gbk")
+print(bs1)
+#b'\xd6\xdc\xbd\xdc\xc2\xd7' bytes类型
+# 每个\x都是一个字节，共六个字节
+
+bs2=s.encode("utf8")
+print(bs2)
+
+# 怎么把一个gbk的字节转化成一个utf-8的字节？
+bs= b'\xd6\xdc\xbd\xdc\xc2\xd7'
+#先变成文字符号（字符串）
+s=bs.decode("gbk") # 解码
+print(s)
+bs2=s.encode("utf-8") # 重新编码
+print(bs2)
+
+# 1.str.encode("编码类型") 编码，得到bytes
+# 2.bytes.decode("解码类型") 解码，得到str
+
+s="你好abc呵呵哒"
+print(s.encode("gbk"))
+# b'\xc4\xe3\xba\xc3abc\xba\xc7\xba\xc7\xdf\xd5'
+print(s.encode("utf8"))
+# b'\xe4\xbd\xa0\xe5\xa5\xbdabc\xe5\x91\xb5\xe5\x91\xb5\xe5\x93\x92'
+# 英文都还是原来的1位
+```
