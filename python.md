@@ -702,9 +702,130 @@ print(a,b)
 #             d:/test/xxx.txt(从磁盘的根目录开始读取，不安全，在开发人员处ok但无法项目迁移)
 #         2.相对路径
 #             相对于当前你的程序所在的文件夹
-# main.py
+
+# mode:
+#     r：read
+#     w:write
+#     a:append
+#     b:读写非文本文件要加，此时可以不加encoding
 
 # 正确的文件打开方式
-open("葫芦娃.txt")
-open("../为了演示文件操作而创建的外部文件")
+# open("葫芦娃.txt")
+# f=open("../为了演示文件操作而创建的外部文件",mode="r",encoding="utf8") #读写文本文件的时候一定要给encoding
+#注意 f只是一个流管道
+
+# 读
+# 1. 全部读取
+# content=f.read()
+# print(content)
+
+# 2.readline
+# line=f.readline().strip()
+# print(line)
+# line=f.readline()
+# print(line)
+#
+# 123456
+#
+# 123456789456
+# print内部存在一个换行，但是文件里面也有一个换行符，隐藏在每行字符的末尾
+# 加上strip可以把换行符干掉
+
+# 3. readlines，读出来放到一个列表里
+# content=f.readlines()
+# print(content)
+
+# 最重要的一种文本读取方式，必须掌握
+# for line in f:
+#     print(line.strip())
+# f是可以循环和遍历的
+
+# f.close()
+
+# 写
+# 1. mode="w"
+# f=open("../通过python创建的一个文件",mode="w",encoding="utf8")
+# w模式下，如果文件不存在，自动的创建一个文件
+# w模式下，每一次open都会清空文件里的内容
+# f.write("胡辣汤1\n")
+#
+# f.close() # 每次尽量关掉，确保数据从缓冲区写入磁盘
+
+
+#
+# f1 =open("../通过python创建的一个文件",mode="w",encoding="utf8")
+# # f.close()
+# lst=["aaa","bbb","ccc","ddd","eee"]
+#
+# for i in lst:
+#     f1.write(i+"\n")
+# # 注意每次的write实际上是预写，写在缓冲区里，还没彻底写进去，只有当close或者程序执行完之后才会生效，如果还未close的话后面的文件也读不出来
+# f1.close()
+#
+#
+# f2 =open("../通过python创建的一个文件",mode="r",encoding="utf8")
+# for lin in f2:
+#     print(lin.strip())
+#
+# f2.close()
+
+#
+# # 2.mode="a",append追加
+# f=open("../通过python创建的一个文件",mode="a",encoding="utf8")
+# f.write("胡辣汤2\n")
+# f.close()
+
+#
+#
+# # with 自动关闭文件
+# with open("../通过python创建的一个文件",mode="r",encoding="utf8") as f: #f=open
+#     for line in f:
+#         print(line.strip())
+#
+# # f.read() # I/O operation on closed file.
+#
+#
+# # 读取图片
+# # 在读取非文本文件的时候要加上b
+# # with open("../屏幕截图 2025-11-03 164326.png",mode="rb") as f:
+# #     print(f.read())
+#
+#
+#
+# # 文件的复制：
+# # 从源文件中读取内容，写入到新路径去
+# # ，\表示下一行和这一行是同一行
+# with open("../屏幕截图 2025-10-31 154831.png",mode="rb") as f1, open("../新图片.png",mode="wb") as f2:
+#     for line in f1:
+#         f2.write(line)
+# 不需要考虑换行符，因为读取的时候已经能读出来换行符了
+
+
+# 文件的修改
+# 不能边读边写
+# 从源文件中读，修改之后放到新文件里
+# 把原来的文件删掉，把新文件再换成原文件
+# 副本其实还在，原来的文件没了，副本变成了原来的文件
+
+# import os 和操作系统相关的模块导入
+import os #导入os模块
+import time #导入时间模块
+with open("../通过python创建的一个文件",mode="r",encoding="utf8") as f1 ,\
+     open("通过_副本.txt",mode="w",encoding="utf8") as f2 :
+    for line in f1:
+        line=line.strip() # 去掉换行符
+        if line.startswith("胡"):
+            line=line.replace("胡","张")
+        f2.write(line+"\n")
+
+# 删除源文件
+time.sleep(3) #让程序休眠3秒钟
+os.remove("../通过python创建的一个文件")
+time.sleep(3)
+# 把副本文件重命名为源文件
+os.rename("通过_副本.txt","../通过python创建的一个文件")
+# 删除源文件
+# 把副本文件重命名成源文件
+
+
 ```
