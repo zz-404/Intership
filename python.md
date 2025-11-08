@@ -489,6 +489,9 @@ print(dic)
 # 删除
 dic.pop("jay")
 
+# 修改
+dic["abc"]=1
+# 直接改即可
 
 # 查找
 # print(dic["jay"]) #如果key不存在，则程序会报错
@@ -528,6 +531,7 @@ print(list(dic.items())) #变成一个列表中放着元组
 
 for item in dic.items():
     print(item)
+# 注意item返回的是键值对，不是单纯的键或者值
 
 a,b=(1,2) #元组或者列表都可以执行该操作，该操作叫做解构，或者解包
 print(a)
