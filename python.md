@@ -462,7 +462,7 @@ lst=["zhoujielun","kunling","caiyilin","zhoujielun","kunling","caiyilin"]
 print(list(set(lst)))
 ```
 
-# 集合
+# 字典
 ```
 # 字典
 # 首先，字典是以键值对的形式进行存储的
@@ -489,9 +489,6 @@ print(dic)
 # 删除
 dic.pop("jay")
 
-# 修改
-dic["abc"]=1
-# 直接改即可
 
 # 查找
 # print(dic["jay"]) #如果key不存在，则程序会报错
@@ -531,7 +528,6 @@ print(list(dic.items())) #变成一个列表中放着元组
 
 for item in dic.items():
     print(item)
-# 注意item返回的是键值对，不是单纯的键或者值
 
 a,b=(1,2) #元组或者列表都可以执行该操作，该操作叫做解构，或者解包
 print(a)
@@ -580,6 +576,10 @@ wangfeng["assistant"][1]["age"]+=12
 print(wangfeng["assistant"][1]["age"])
 
 
+dic={"大张伟":1,
+     "大步走":2,
+     "dasd":3
+     }
 # 循环删除
 # 准备临时列表
 temp=[]
@@ -591,6 +591,8 @@ for key in dic:
 
 for item in temp:
     dic.pop(item)
+
+print(dic)
 ```
 
 # bytes
