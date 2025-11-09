@@ -950,4 +950,242 @@ dic={
 #     1.函数内部没有 return，默认返回none
 #     2.函数内部只有return后面不跟数据，此时接收到的还是none
 #     3. return 值1，值2，值3，此时返回的是一个元组
+
+
+# 作用域：变量的访问权限
+
+# a=10 #全局变量 --> 全局作用域
+#
+# def func():
+#     b=10
+#     print(a) 全局变量在函数内部可以访问
+# print(b)  #局部变量外部不能访问
+
+# # 局部变量外部不能访问
+
+# 顶格声明的函数也可以认为是全局的，可以在各处调用
+# 函数外部想访问函数内部只能用return
+
+# # python中允许函数嵌套(不是函数的调用)
+# def func1():
+#     print(123)
+#     def func2():  # 函数的嵌套，局部变量，局部函数
+#         print(456)
+#         def func3():
+#             print(789)
+#             def func4():
+#                 print(78910)
+#     print(3)
+#     func2()
+#     print(4)
+#     # 函数内部访问局部函数是没问题的
+#
+# func1()
+
+
+# 返回值是局部函数的情况，把函数当成一个变量返回
+# def func():
+#     def inner():
+#         print(123)
+#     print(inner) #<function func.<locals>.inner at 0x000001C1C2673920>
+#     return inner #一定不能加括号，加括号返回的是返回值
+#
+# b1=func()
+# b1()
+# print(b1) #<function func.<locals>.inner at 0x0000025F4C483920>,b1就是这个inner
+# b1就是inner
+
+
+
+# # 函数的赋值
+# def an():
+#     return 123
+# bn=an #注意不能加括号
+# print(bn())
+
+
+# 代理模式
+# 函数可以作为实参进行传入
+# def func1(an):
+#     print(an())
+#
+# def tar():
+#     return "123456tar"
+#
+# func1(tar)
+
+# 综上：
+# 1.函数可以作为参数返回
+# 2.函数可以作为参数进行互相传递
+# 函数实际上就是一个变量名
+
+
+# global #在局部引入全局变量
+# nonlocal #向外找一层，看看有没有该变量，如果有就引入，如果没有就继续向外找，直到全局（不包括）
+# a=10
+# def func():
+#     # print(a) #还是全局变量，这个可以
+#     # a=20 #创建一个全部变量，并没有去改变全局变量中的a
+#     global a
+#     a=20
+#
+# func()
+# print(a)
+#
+#
+# def func2():
+#     a=10
+#     def inner():
+#         nonlocal a
+#         a=12
+#     inner()
+#     print(a)
+#
+# func2()
+
+# 闭包 ：本质，内层函数对外层函数的局部变量的使用，此时内层函数被称为闭包函数
+# 1. 可以让一个变量长驻于内存，实现了全局变量的效果
+# 2. 可以避免全局变量被修改
+# 闭包语法：
+b=10
+def func():
+    a=10
+    def inner():
+        # 这个a本身是一个局部变量，但是达到了全局变量的效果
+        nonlocal a
+        a+=1
+        return a
+
+    return inner
+
+ret=func()
+ret()
+# ret的执行时间不确定，为了保证正常使用inner，必须保证inner所使用的东西是一直都存在的，即闭包所使用的东西必须一直常驻于内存
+
+print(ret())
+print(ret())
+
+
+#
+# 内容回顾：
+# 1.函数可以作为参数进行传递 （还记得代理模式吗）
+# 2.函数可以作为返回值进行返回
+# 3.函数名称可以当成变量一样进行赋值操作
+
+def func():
+    print("我是函数")
+
+def gggg(fn):
+    fn()
+
+gggg(func) #注意只传函数名字，括号啊参数啊都不传
+
+def func2():
+    def inner():
+        print(123)
+    return inner
+
+ret=func2()
+ret()
+
+newfunc=func
+newfunc()
+
+
+
+# 装饰器  ->  要求记住最后的结论
+# def play_dnf():
+#     print("你好啊我叫赛利亚")
+#
+# def play_lol():
+#     print("德玛西亚！")
+#
+# print("开挂")
+# play_lol()
+# print("关闭外挂")
+#
+# print("开挂")
+# play_dnf()
+# print("关闭外挂")
+#
+# def guanjia(game):
+#     def inner():
+#         print("开挂")
+#         game()
+#         print("关闭外挂")
+#     return inner
+#
+# play_dnf=guanjia(play_dnf)  #让管家把游戏重新封装一边，再把原来的游戏给替换掉
+# play_dnf() #此时运行的是管家给的内层函数inner
+
+# # play_dnf=guanjia(play_dnf)  #如果再封装一次就变成两次开挂了
+# play_dnf()
+
+
+# def guanjia(game):
+#     def inner():
+#         print("开挂")
+#         game()
+#         print("关闭外挂")
+#     return inner
+#
+#
+# @guanjia
+# def play_dnf():
+#     print("你好啊我叫赛利亚")
+#
+# @guanjia
+# def play_lol():
+#     print("德玛西亚！")
+#
+# play_dnf()
+# play_lol()
+# 装饰器：
+# 装饰器本质上是一个闭包
+# 作用：
+#     在不改变原有函数★调用★的情况下，给函数增加新的功能
+#     直白：可以在函数前后添加新功能，但是不改原来的代码
+
+# 雏形：
+# def wrapper(fn):    wrapper:装饰器，fn:目标函数
+#     def inner(*args,**kwargs):
+#         # before
+#         fn(*args,**kwargs) #执行目标函数
+#         #after
+#     return inner
+
+
+
+#
+# def func1(fn):
+#     fn()
+#
+# def func2():
+#     print(123)
+#
+# func1(func2) # #把函数作为参数传递时一定只传函数名字，其他什么都不加
+
+def guanjia(game):
+    # 这里的*表示接受所有的元组和字典
+    def inner(*args,**kwargs): #args 一定是元组
+        print("开挂")
+        # 这里的*表示把接收到的元组和字典再打散成参数传递进去
+        game(*args,**kwargs)
+        print("关闭外挂")
+    return inner
+
+#把函数作为参数传递时一定只传函数名字，其他什么都不加
+@guanjia
+def play_dnf(username,password):
+    print("你好啊我叫赛利亚",username,password)
+
+@guanjia
+def play_lol(username,password,hero):
+    print("德玛西亚！",username,password,hero)
+
+play_dnf("123",123)
+play_lol("oiu",456,"盖伦")
+
+# 理解：inner它是最后封在外面的函数，他要无限制的接受，接收完之后再把接收到的东西打散成内层函数，让内层函数来执行，这个外层函数最后再赋值给内层函数，内层函数放心地执行即可，同时也说明内层函数只套了一层
+
 ```
