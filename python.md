@@ -831,3 +831,123 @@ os.rename("通过_副本.txt","../通过python创建的一个文件")
 
 
 ```
+
+# 函数上
+```
+# 函数
+# 好处：封装功能，代码更简洁，更合理
+# python里面形参不写类型,也不写返回值
+
+def calculator(a,b,op):
+    if op=='+':
+        return a+b
+    elif op=='-':
+        return a-b
+    elif op=='*':
+        return a*b
+    elif op=='/':
+        if b==0:
+            return None
+        else:
+            return a/b
+
+
+print(calculator(1,2,"+"))
+print(calculator(1,2,"-"))
+print(calculator(1,2,"*"))
+
+#
+# 参数的分类
+#     1. 形参，在函数定义的时候需要准备一些变量来接收信息
+#     2. 实参，实际调用的时候传递的信息
+
+# 实参传参方式
+def chi(main,ast,soup):
+    print(main,ast,soup)
+
+#         1. 位置参数，按照位置进行传参
+chi("大米","咸菜","粥")
+
+#         2. 关键字参数，指定形参的名字进行传参
+chi(main="大米",soup="粥",ast="咸菜")
+
+#         3. 混合参数,位置参数在前面，关键字参数在后面，并且一定要保证
+chi("大米","咸菜",soup="粥")
+
+
+
+# 形参传参方式
+# 1.位置参数，按照位置
+# 2.默认值参数
+#   默认参数必须从右向左连续设置
+
+def classroom(main="1班",num=12,style="nb"):
+    print(main,num,style)
+
+# classroom()
+# classroom("2班")
+# # 注意默认值必须保证前面所有的参数全部写出
+# classroom(13,style="nnn")
+
+# 位置参数总是放在前面的
+# 3.动态传参
+#     1. *args ，表示接收所有的位置参数的动态传参
+#     2. **kwargs ，表示接受所有的关键字参数的动态传参
+
+# 顺序: 位置> *args >默认值>**kwargs
+#           1.args
+# def chi(*food): # * 表示位置参数的动态传参，*接受到的值会被统一放在一个元组里面
+#     print(food)
+#
+# chi("123","456","789")
+# chi("123","789")
+# chi("123","456")
+
+#           2. **kwargs,表示接受所有的关键字的动态传参
+#
+# def chi(**food):  # **表示接受关键字的动态传参，接收到的所有参数都会被处理成字典
+#     print(food)
+#
+# chi(fu="糯米糍",des="深圳")
+
+
+#      4.混合传参
+def func1(a,b,c="哈哈",*args,**kwargs):
+    print(a,b,c,args,kwargs)
+
+func1(1,2,"123",4,5,6,7,8,9,hello=456,nihao=789)
+# 何时能产生默认值
+# 如果c的默认值生效，则args一定收不到任何值
+# 如果args收到了值，则c的默认值yidingmie
+
+def func2(a,b,*args,c="哈哈",**kwargs):
+    print(a,b,c,args,kwargs)
+
+func2(1,2,3,4,5,6,7,8,9,c=123,hello=456,nihao=789)
+
+# args直接全部收走了
+# 但是默认值参数可以通过关键字参数指定c的值
+
+def func3(*arg,**kwargs): # 没有限制的接受任何参数
+    print(arg,kwargs)
+
+
+
+stulst=["123","456","789","101","102"]
+def func4(*args):
+    print(args)
+
+func4(*stulst) # *在实参位置就是把列表打散成位置参数传递
+
+dic={
+    "abc":123
+}
+# **也可以打散
+
+
+# 
+# 关于 return
+#     1.函数内部没有 return，默认返回none
+#     2.函数内部只有return后面不跟数据，此时接收到的还是none
+#     3. return 值1，值2，值3，此时返回的是一个元组
+```
