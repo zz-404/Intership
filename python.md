@@ -498,6 +498,7 @@ dic.pop("jay")
 # 查找
 # print(dic["jay"]) #如果key不存在，则程序会报错
 # print(dic.get("jay")) #如果key不存在，返回null，当不确定key的时候可以用
+in 关键字
 
 # None
 a=None #单纯的就是空，什么都没有
@@ -952,7 +953,7 @@ dic={
 # 关于 return
 #     1.函数内部没有 return，默认返回none
 #     2.函数内部只有return后面不跟数据，此时接收到的还是none
-#     3. return 值1，值2，值3，此时返回的是一个元组
+#     3. return 值1，值2，值3，此时返回的是一个元组，python函数可以返回好多个值
 
 
 # 作用域：变量的访问权限
@@ -1143,7 +1144,9 @@ newfunc()
 #
 # play_dnf()
 # play_lol()
+```
 # 装饰器：
+```
 # 装饰器本质上是一个闭包
 # 作用：
 #     在不改变原有函数★调用★的情况下，给函数增加新的功能
@@ -1157,7 +1160,15 @@ newfunc()
 #         #after
 #     return inner
 
-
+# 通用
+def wrapper(fn):    wrapper:装饰器，fn:目标函数
+    def inner(*args,**kwargs):
+        # before
+         ret = fn(*args,**kwargs) #执行目标函数
+         #after
+        return ret
+     return inner
+# 通用装饰器
 
 #
 # def func1(fn):
@@ -1191,4 +1202,65 @@ play_lol("oiu",456,"盖伦")
 
 # 理解：inner它是最后封在外面的函数，他要无限制的接受，接收完之后再把接收到的东西打散成内层函数，让内层函数来执行，这个外层函数最后再赋值给内层函数，内层函数放心地执行即可，同时也说明内层函数只套了一层
 
+
+
+# 一个函数可以被多个装饰器装饰
+def wrapper1(func):
+    def inner(*args,**kwargs):
+        print("wrapper1 in")
+        ret=func(*args,**kwargs)
+        print("wrapper1 out")
+        return ret
+    return inner
+
+def wrapper2(func):
+    def inner(*args,**kwargs):
+        print("wrapper2 in")
+        ret=func(*args,**kwargs)
+        print("wrapper2 out")
+        return ret
+    return inner
+
+
+@wrapper1 #tar= wrapper1(wrapper2(tar))
+@wrapper2 # tar=wrapper2(tar)
+def func3():
+    print("func3")
+
+func3()
+# 先装wrapper2，再装wrapper1，最后实现的状态有点类似于栈
+
+
+# 员工系统实战
+loginflag=0
+def login(fn):
+    def inner(*args,**kwargs):
+        global loginflag
+        if loginflag==0:
+            username=input("uname")
+            print("logining")
+            loginflag=1
+        ret=fn(*args,**kwargs)
+        print("logining out")
+        return ret
+    return inner
+
+@login
+def add(name):
+    print(f"录入{name}")
+
+@login
+def out(name):
+    print(f"out {name}")
+
+@login
+def change(name):
+    print(f"change {name}")
+
+add("123")
+out("123")
+change("456")
+
 ```
+# 函数下：
+
