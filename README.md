@@ -13,3 +13,5 @@ eino
 计算机视觉
 
 mindspore框架
+
+kaggle项目
