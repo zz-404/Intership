@@ -1263,4 +1263,191 @@ change("456")
 
 ```
 # 函数下：
+```
+"""
+for 变量 in 可迭代
+    pass
 
+
+iterable 可迭代的东西
+iterator 迭代器
+str，list，tuple，dict，set，open()
+
+可迭代的数据类型都会提供一个叫迭代器的东西
+这个迭代器可以帮我们把数据类型中的所有数据逐一的拿到
+
+获取迭代器的两种方案：
+    1. iter() 内置函数可以直接拿到迭代器
+    2. __iter__()
+从迭代器中拿到数据：
+    1.next()
+    2.__next__()
+
+for 里面一定要拿迭代器，所以有不可迭代的东西不能用for循环
+for循环里面一定有x__next__()
+
+总结：迭代器统一了所有不同数据类型的遍历工作
+
+
+迭代器本身也是可迭代的
+
+迭代器本身的特性：
+    1. 只能向前，不能反复
+    2. 很省内存
+    3. 惰性机制，只有调用的时候才往后挪一个，不调用就不改变位置，
+"""
+it=iter("你叫什么名字啊")
+
+print(next(it))
+print(next(it))
+print(next(it))         # StopIteration:迭代停止了，拿不出，一次性，再想拿需要重新重新获取迭代器
+
+it="heheda".__iter__()
+print(next(it))
+print(it.__next__())
+
+
+# 模拟for循环的工作原理:
+s = "123456"
+it=s.__iter__()
+while 1:
+    try:
+        data=it.__next__()
+        print(data)
+    except StopIteration:   #Stopiteration 是错误类型
+        break
+
+
+it="123456".__iter__()
+
+for mm in it:
+    print(mm)
+
+
+# 字符串的改变可以用索引或切片
+s="123456"
+s=s[1:]
+it=s.__iter__()
+print(it.__next__())
+# 出现了之前删除时发生过的问题,迭代器他只管所在的位置，不管数据有没有更改
+
+"""
+    生成器(generator)：
+        生成器的本质就是迭代器
+        
+        创建生成器的两种方案：
+            1.生成器函数
+            2.生成器表达式
+            
+        生成器函数
+            生成器函数关键字 yield
+            生成器函数执行的时候，不会执行函数本体，得到的是一个迭代器
+            生成器执行next的时候，才会执行函数本体，并返回一个可以迭代的返回值
+            
+            yield:只要函数中出现了yield，他就是一个生成器函数
+                作用：
+                    1.可以返回数据
+                    2.可以分段的执行函数中的内容，通过__next__()执行到下一个yield的位置
+                    3.每次从上一个yield的位置开始执行
+                
+            优势：
+                用好了，特别的节省内存
+"""
+def func():
+    print(123456)
+    yield 999 #yield 也有返回的意思,但是只有执行到next的时候，才会返回数据
+    print("2th")
+    yield "hello"
+ret=func()
+print(ret)
+ret.__next__()
+print(ret.__next__())
+
+#去工厂定制10000键一副
+# def order():
+#     lst=[]
+#     for i in range(10000):
+#         lst.append(f"衣服{i}")
+#     return lst
+
+# print(order())
+
+def order():
+    lst=[]
+    for i in range(1,1000):
+        lst.append(f"衣服{i}")
+        if len(lst)==50:
+            yield lst
+            lst.clear()
+
+ret=order()
+print(ret.__next__())
+
+print(ret.__next__())
+
+
+
+# 列表推导式
+"""
+推导式：
+    简化代码
+    语法：
+        列表推导式：[数据 for循环 if判断]    
+        集合推导式：{数据 for循环 if判断}
+        字典推导式：{k:v for循环 if判断}
+
+    不要把推导式妖魔化
+    
+    元组不能新增数据，没有推导式
+    (数据 for循环 if判断) ---> 生成器表达式
+"""
+lst=[i for i in range(1,10,2)]
+print(lst)
+lst=[i for i in range(10) if(i%2!=0)]
+print(lst)
+
+lst=[f"衣服{i}" for i in range(1,10,2)]
+print(lst)
+
+# 将如下列表中的所有英文字母改成大写
+lst1=["abcd","yui","poi"]
+lst2=[i.upper() for i in lst1]
+print(lst2)
+
+s={i for i in range(1,10,2)}
+print(s)
+
+# 4.改为字典，索引为key数据为value
+lst1=["abcd","yui","poi"]
+s={i:lst1[i] for i in range(len(lst1)) }
+print(s)
+
+s={i:j for i,j in enumerate(lst1) }
+# enumerate 用于在遍历序列（如列表、元组、字符串）时，同时获取元素的索引和值,并组合成一个元组，再解构即可直接获得索引和值
+
+
+"""
+生成器表达式：
+(数据 for循环 if判断)
+
+"""
+gen=(i**2 for i in range(10))
+print(gen.__next__())
+print(gen.__next__())
+
+# 想把迭代器中的数据全拿出来，由于迭代器本身也可以被迭代
+for it in gen:
+    print(it)
+
+# 注意是it不是it.__next__()
+
+# 想把迭代器中的东西变成列表：
+s="zhoujielun"
+lst=list(s)
+print(lst)
+"""
+因为小括号实际上是一项一项的拿出来，所以也在迭代，里面一定有list
+"""
+print(list(gen))
+# [],生成器表达式是个一次性的东西
+```
