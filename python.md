@@ -1457,7 +1457,7 @@ print(list(gen))
         lambda表达式
         语法 ：
             变量 = lambda 参数1 ， 参数2 ， 参数3 ，：返回值
-
+        注意lambda不要写return关键字
 """
 fn = lambda a,b:a+b
 print(fn)
