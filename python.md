@@ -1626,6 +1626,12 @@ s=sorted(lst,key=lambda a:a["age"])
 # 一定要写key关键字
 print(s)
 
+
+lst = ["zz", "aaa", "bbbbb", "cc", "ddd"]
+s = sorted(lst, key=lambda x: (-len(x), x))
+添加负号来实现降序
+
+
 """
 filter:筛选
 """
