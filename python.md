@@ -1654,3 +1654,94 @@ print(sys.getrecursionlimit())
 sys.setrecursionlimit(2000)
 # 优化算法
 ```
+
+# 面向对象
+```
+class student:
+    # 如果函数在类中，那么被称之为类方法
+    def __init__(self,name,age): #通过init方法给类添加属性
+        self.name=name
+        self.age=age
+        # 给当前对象添加属性
+    def study(self,course):
+        #属性使用self调用
+        print(f"{self.name} is studying {course}")
+
+    def play(self):
+        print(f"{self.name} is playing")
+
+
+    def add(self,a):
+        self.additional=a
+        # Python中不仅__init__函数可以添加属性，其他任何实例方法都可以添加属性,不建议
+
+    def __repr__(self): #利用类方法返回当前属性
+        return f"{self.name} : {self.age}"
+# 定义了一个学生类，里面定义了一些方法
+
+# 当前的stu1是我们student类的对象，具体实例
+stu1=student("张三",11)
+stu1.study("python")
+
+# 注意python里面不能写student stu1(init)，python的实例化要记住
+print(hex(id(stu1)))
+a=format(id(stu1),"x")
+print(a)
+
+# 调用类方法
+# 1.调用对象.方法来调用
+stu1.play()
+# 2.直接通过类调用
+# student.study("python") TypeError: student.study() missing 1 required positional argument: 'course'
+# 需要通过实例化
+student("李四",123).study("python") #必须先对当前的类进行实例化，通过实例化一个对象来调用
+
+# 打印对象
+print(stu1.__repr__())
+
+print(stu1.name)
+# 对象的属性通常是private或者protected，但是类方法一般是public，是提供给外界的接口
+
+
+
+# property是类内部的一个装饰器
+class student2:
+    def __init__(self,name,age):
+        # 添加私有属性
+        self.__name=name
+        self.__age=age
+        # 给当前对象添加属性
+
+    # property是类内部的一个装饰器
+    # 首先需要获取私有属性
+    @property
+    def name(self):
+        return self.__name
+
+    #修改私有属性
+    @name.setter
+    def name(self,name):
+        self.__name=name or "无名氏"
+
+    @property
+    def age(self):
+        return self.__age
+
+    @age.setter
+    def age(self,age):
+        self.__age=age
+
+    def study(self,course):
+        #属性使用self调用
+        print(f"{self.__name} is studying {course}")
+
+
+
+stu3=student2("123",45)
+stu3.study("python")
+# print(stu3.__name) 'student2' object has no attribute '__name',私有属性，只能在类里面使用
+# print(stu3.name)
+# 但是可以通过邪门方法打印出来
+# print(stu3.name)
+stu3.name="abc"
+```
