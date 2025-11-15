@@ -1517,6 +1517,7 @@ print(format(a,"08b")) #自动补齐场宽
 # ord
 a="中" # python的内存中使用的是unicode（不是存储）
 print(ord(a)) # 中 字在unicode中码位20013
+# ord可以获取字符的ascii码
 print(chr(20013)) # 把码位转换为字符
 # for i in range(65536):
 #     print(chr(i)+" ",end="")
