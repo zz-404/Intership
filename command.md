@@ -27,3 +27,5 @@ cd ~/ai_projects/cv_classification
 conda create -n cv_classification python=3.9  
 conda activate cv_classification  # 进入环境后再装包、写代码
 ```
+
+# linux
