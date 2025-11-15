@@ -1463,3 +1463,83 @@ fn = lambda a,b:a+b
 print(fn)
 print(fn(10,20))
 ```
+
+# 内置函数
+```
+"""
+内置函数：
+直接能拿来用的函数
+
+
+"""
+s="123"
+i=int(s)
+b=bool(s)
+f=float(s)
+
+# bin,oct,hex 十进制转他进制
+a=18
+print(bin(a))
+print(oct(a))
+print(hex(a))
+
+# 他进制转十进制
+a=0o1101
+print(int(a))
+
+# sum,min,max,pow
+print(pow(a,2))
+print(a**2)
+
+lst=[123,12,4,456,65]
+print(max(lst))
+
+
+# 数据结构相关
+s={1,2,3,}
+lst=list(s)  # list内置函数内部一定会有一个循环
+print(lst)
+# 逻辑：
+for item in s:
+    lst.append(item)
+
+
+# 字符串相关
+# format,ord,chr
+# format 格式化
+a=10
+print(format(a,"b"))
+print(format(a,"o"))
+print(format(a,"x"))
+
+print(format(a,"08b")) #自动补齐场宽
+
+# ord
+a="中" # python的内存中使用的是unicode（不是存储）
+print(ord(a)) # 中 字在unicode中码位20013
+print(chr(20013)) # 把码位转换为字符
+# for i in range(65536):
+#     print(chr(i)+" ",end="")
+
+# all
+print(all([12,"hehe",0]))# 打印一堆东西的与，相当于and
+
+lst=["",""]
+print(any(lst))# 打印一堆东西的或，相当于or
+
+
+# enumerate
+ls=[123,45,16,7]
+for i,j in enumerate(ls):
+    print(i,j)
+
+s="heheda"
+print(hash(s)) # 做数学运算，成为一个数字，想办法转化成一个内存地址，然后进行数据的存储，成为哈希表
+#每次执行都不一样
+print(hash(s))
+print(id(s)) #id是直接拿到内存地址，而哈希是进行计算，两者不同
+
+print(help(str))# 针对数据类型
+print(dir(s)) # 针对对象，当前这个对象可以执行哪些操作
+# 返回源码，pycharm直接按control即可看源码，但是help或dir可以在控制台里看源码
+```
