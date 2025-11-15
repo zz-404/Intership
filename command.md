@@ -19,4 +19,11 @@ Miniconda 的核心是 “conda 命令”，日常用得最多的就 3 个，你
 用conda install numpy pandas（适合安装系统依赖类包）；
 用pip install torch（适合安装 AI 框架，和 conda 兼容，互不冲突）；
 卸载用conda remove 包名或pip uninstall 包名。
+
+# 新建CV项目文件夹
+mkdir ~/ai_projects/cv_classification  
+cd ~/ai_projects/cv_classification  
+# 同时创建专属环境（命名和文件夹对应，方便记忆）
+conda create -n cv_classification python=3.9  
+conda activate cv_classification  # 进入环境后再装包、写代码
 ```
