@@ -1543,4 +1543,108 @@ print(id(s)) #id是直接拿到内存地址，而哈希是进行计算，两者�
 print(help(str))# 针对数据类型
 print(dir(s)) # 针对对象，当前这个对象可以执行哪些操作
 # 返回源码，pycharm直接按control即可看源码，但是help或dir可以在控制台里看源码
+
+
+# """
+# zip：可以把多个可迭代内容进行合并
+# """
+# lst1=["驴打滚","芝麻球","咸肉粽"]
+# lst2=[12,23,10]
+# lst3=["辽宁","吉林","黑龙江"]
+# result=[]
+# # for i in range(len(lst1)):
+# #     frist=lst1[i]
+# #     second=lst2[i]
+# #     third=lst3[i]
+# #     result.append((frist,second,third))
+# #
+# # print(result)
+#
+# result=zip(lst1,lst2,lst3)
+# print(dir(result))
+# for item in result:
+#     print(item)
+#
+# print(list(result)) #list 里面有for循环
+
+#locals,globols
+#locals
+a=123
+b=321
+print(locals())# locals放在全局，看到的是全局
+def func():
+    a=987
+    uio= 336
+    print(locals())
+    print(globals())
+
+func()
+
+
+"""
+sorted :排序
+"""
+lst=[123,5,456,12]
+sorted(lst,reverse=True) # 注意不改变原结果，只提供返回值
+s=sorted(lst)
+print(s)
+lst=["zz","aaa","bbbbb"]
+# sorted(lst,key=排序规则，reverse=)
+# 排序规则会把每一项数据分别传递给排序函数，排序函数里面写规则
+# sorted把每一项传递给排序函数，然后根据排序函数的返回值来进行排序
+def cmp(a):
+    return ord(a[0])
+s=sorted(lst,key=cmp,reverse=True)
+print(s)
+
+s=sorted(lst,key=lambda a:ord(a[0]))
+print(s)
+
+lst=[
+    {"id":1,
+     "name":"aaa",
+     "age":12
+     },
+    {"id":2,
+     "name":"bbb",
+     "age":13
+     },
+    {"id":3,
+     "name":"aaa",
+     "age":789
+     },
+    {"id":4,
+     "name":"aaa",
+     "age":1
+     },
+    {"id":5,
+     "name":"aaa",
+     "age":12311
+     }
+]
+s=sorted(lst,key=lambda a:a["age"])
+# 一定要写key关键字
+print(s)
+
+"""
+filter:筛选
+"""
+lst=["123","321","1234567"]
+f=filter(lambda x:x[0]=="1",lst)
+print(list(f))
+
+
+"""
+map:映射
+"""
+lst=[1,2,3,4,5,6,7,8,9]
+r=map(lambda x:x**2,lst)
+print(list(r))
+
+
+# python默认最大递归深度是1000
+import sys
+print(sys.getrecursionlimit())
+sys.setrecursionlimit(2000)
+# 优化算法
 ```
