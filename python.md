@@ -1450,4 +1450,16 @@ print(lst)
 """
 print(list(gen))
 # [],生成器表达式是个一次性的东西
+
+
+"""
+    匿名函数：
+        lambda表达式
+        语法 ：
+            变量 = lambda 参数1 ， 参数2 ， 参数3 ，：返回值
+
+"""
+fn = lambda a,b:a+b
+print(fn)
+print(fn(10,20))
 ```
