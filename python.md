@@ -1745,3 +1745,44 @@ stu3.study("python")
 # print(stu3.name)
 stu3.name="abc"
 ```
+```
+模块的导入
+[from 模块名] import[模块| 类 | 变量 | 函数 | *] [as 别名]
+
+import 模块
+import time
+time.sleep(5)
+import torch
+t1=torch.tensor()
+
+from 模块 import 功能
+from time import sleep
+sleep(5)
+
+from 模块 import * (导入全部功能，只不过不需要不需要写 模块名. 了)
+
+自定义模块
+已经定义my_model.py
+import my_model
+
+
+不同模块的同名功能同时导入
+只能用下面的那个
+
+导入模块时如果模块里有自己的测试函数则会自己执行一次
+所以使用 if __name__=='__main__' ,使得导入这个模块的时候就不再执行
+```
+```
+python包
+一个文件夹
+__init__.py  存在的话就是包，不存在就是文件夹
+
+导包
+import my_package.mymodel1
+my_package.mymodel1.test01()
+
+from my_package import mymodel1
+mymodel1.test01()
+
+from my.mymodel1 import test01
+from my.mymodel1 import test02
